@@ -1,22 +1,37 @@
-class Solution {
-public:
-    int searchInsert(vector<int>& a, int x) {
-        int n = a.size();
+class Solution
+{
+    public:
+    vector<int> find(int a[], int n , int x )
+    {
+        int fo = -1, lo = -1;
+        
         int l = 0, r = n-1;
-        int ans = n;
         
         while ( l <= r ) {
-            int mid = (l + r) / 2;
+            int mid = ( l + r ) / 2;
             
+            if ( a[mid] == x ) fo = mid;
             if ( a[mid] >= x ) {
-                ans = mid;
                 r = mid-1;
             }
             else {
                 l = mid+1;
             }
         }
-
-        return ans;
+        
+        l = 0, r = n-1;
+        while ( l <= r ) {
+            int mid = ( l + r ) / 2;
+            
+            if ( a[mid] == x ) lo = mid;
+            if ( a[mid] <= x ) {
+                l = mid+1;
+            }
+            else {
+                r = mid-1;
+            }
+        }
+        
+        return {fo, lo};
     }
 };
