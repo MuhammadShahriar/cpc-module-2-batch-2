@@ -46,28 +46,47 @@ template < typename T, typename ... hello>void faltu( T arg, const hello &... re
 ll gcd ( ll a, ll b ) { return __gcd ( a, b ); }
 ll lcm ( ll a, ll b ) { return a * ( b / gcd ( a, b ) ); }
 
-const int mx = 2e5+123;
-int a[mx], b[mx];
+const int mx = 1e4+123;
+ll cube[mx];
 
 int main()
 {
     optimize();
 
-    int n, m;
-    cin >> n >> m;
+    int t;
+    cin >> t;
 
-    for ( int i = 0; i < n; i++ ) cin >> a[i];
-    for ( int i = 0; i < m; i++ ) cin >> b[i];
+    int lim = 1e4;
+    for ( ll i = 1; i <= lim; i++ ) cube[i] = i * i * i;
 
-    sort ( a, a+n );
+    while ( t-- ) {
+        ll x;
+        cin >> x;
 
-    for ( int i = 0; i < m; i++ ) {
-        int up = upper_bound( a, a+n, b[i]) - a;
-        cout << up << " ";
+        bool yes = false;
+        for ( ll b = 1; b <= lim; b++ ) {
+            ll aCube = x - ( b * b * b );
+
+            if(aCube < 1) break;
+            bool isExists = binary_search( cube+1, cube+lim, aCube );
+
+            if ( isExists ) {
+                yes = true;
+                break;
+            }
+        }
+
+        if ( yes ) {
+            cout << "YES\n";
+        }
+        else {
+            cout << "NO\n";
+        }
     }
 
     return 0;
 }
+
 
 
 
